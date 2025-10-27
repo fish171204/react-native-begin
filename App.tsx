@@ -2,9 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, View } from 'react-native';
 import container from './src/dependencies/dependencies';
 import UserService from './src/services/user_service';
+import { PostClient } from './src/networking/post/PostClient';
 
 export default function App() {
   const userService = container.get<UserService>('UserService');
+  const postClient = container.get<PostClient>('PostClient');
 
   return (
     <>
@@ -12,7 +14,11 @@ export default function App() {
         <Button
           title="Press Me"
           onPress={() => {
-            userService.hello();
+            postClient.fetchPosts().then(posts => {
+              posts.forEach((e) => {
+                console.log('===> ', e.id)
+              })
+            })
           }}
         />
       </View>
