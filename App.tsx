@@ -39,6 +39,7 @@ import UserService from './src/services/user_service';
 import { PostClient } from './src/networking/post/PostClient';
 import UseStateExample from './src/presentation/components/UseStateExample';
 import { UseEffectExample } from './src/presentation/components/UseEffectExample';
+import { UseContextExample } from './src/presentation/components/UseContextExample';
 
 export default function App() {
   const userService = container.get<UserService>('UserService');
@@ -46,7 +47,7 @@ export default function App() {
 
   return (
     <>
-      <UseEffectExample />
+      <UseContextExample />
     </>
   );
 }
