@@ -38,6 +38,7 @@ import container from './src/dependencies/dependencies';
 import UserService from './src/services/user_service';
 import { PostClient } from './src/networking/post/PostClient';
 import UseStateExample from './src/presentation/components/UseStateExample';
+import { UseEffectExample } from './src/presentation/components/UseEffectExample';
 
 export default function App() {
   const userService = container.get<UserService>('UserService');
@@ -45,7 +46,7 @@ export default function App() {
 
   return (
     <>
-      <UseStateExample />
+      <UseEffectExample />
     </>
   );
 }
