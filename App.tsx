@@ -1,20 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
+import container from './src/dependencies/dependencies';
+import UserService from './src/services/user_service';
 
 export default function App() {
+  const userService = container.get<UserService>('UserService');
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <>
+      <View style={styles.appbar}>
+        <Button
+          title="Press Me"
+          onPress={() => {
+            userService.hello();
+          }}
+        />
+      </View>
       <StatusBar style="auto" />
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  appbar: { paddingTop: 100 },
 });
