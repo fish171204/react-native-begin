@@ -56,3 +56,17 @@ export const UseReducerExample = () => {
         </>
     );
 };
+
+/*
+    useReducer:
+    - Là hook giúp quản lý state phức tạp (nhiều hành động, nhiều bước cập nhật) thay cho useState.
+    - Nhận vào 2 tham số: reducer (hàm xử lý state) và initialState (giá trị ban đầu).
+    - Trả về [state, dispatch]:
+        + state: giá trị hiện tại.
+        + dispatch: hàm dùng để gửi action vào reducer.
+    - Cấu trúc hoạt động vd này:
+        onPress → dispatch(action) → reducer(state, action) → return state mới → component re-render.
+    - Dùng khi:
+        + State có nhiều loại cập nhật khác nhau (add, delete, toggle...).
+        + Muốn code gọn, tách logic cập nhật state ra khỏi component.
+*/
