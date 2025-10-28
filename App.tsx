@@ -41,6 +41,7 @@ import UseStateExample from './src/presentation/components/UseStateExample';
 import { UseEffectExample } from './src/presentation/components/UseEffectExample';
 import { UseContextExample } from './src/presentation/components/UseContextExample';
 import { UseRefExample } from './src/presentation/components/UseRefExample';
+import { UseReducerExample } from './src/presentation/components/UseReducerExample';
 
 export default function App() {
   const userService = container.get<UserService>('UserService');
@@ -48,7 +49,7 @@ export default function App() {
 
   return (
     <>
-      <UseRefExample />
+      <UseReducerExample />
     </>
   );
 }
