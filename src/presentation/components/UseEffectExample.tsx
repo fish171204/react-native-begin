@@ -33,3 +33,16 @@ export const UseEffectExample = () => {
 const style = StyleSheet.create({
     appbarTop: { paddingTop: 100 }
 })
+
+/*
+    useEffect:
+    - Là hook giúp xử lý các "tác vụ phụ" (side effects) trong React như gọi API, thao tác DOM, setTimeout,...
+    - Cú pháp: useEffect(callback, [dependencies])
+        + callback: hàm sẽ chạy sau khi render.
+        + dependencies: mảng giá trị phụ thuộc, chỉ khi giá trị trong mảng thay đổi thì callback mới chạy lại.
+    - Nếu dependencies rỗng [] → chỉ chạy 1 lần khi component mount.
+    - Nếu có dependencies → chạy lại mỗi khi giá trị trong mảng thay đổi.
+    - Trong ví dụ này:
+        + Khi component mount hoặc khi reload thay đổi, useEffect gọi postApi.fetchPosts() để lấy danh sách bài viết.
+        + Kết quả trả về được set vào state posts → component tự động re-render để hiển thị dữ liệu mới.
+*/ 
