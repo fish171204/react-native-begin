@@ -1,57 +1,58 @@
-import { useState, useReducer } from "react";
-import { Button, View, Text, } from "react-native";
+import React, { useReducer } from "react";
+import { Button, View, Text } from "react-native";
+import { Todo } from "../../model/typeTodo";
 
-const initialTodos = [
-    {
-        id: 1,
-        title: "To do 1",
-        complete: false,
-    },
-    {
-        id: 2,
-        title: "To do 2",
-        complete: false,
-    },
-    {
-        id: 3,
-        title: "To do 3",
-        complete: false,
-    }
-]
+// Union Type (kiểu hợp).
+type Action =
+    | { type: "COMPLETE"; id: number }
+    | { type: "UNCOMPLETE"; id: number }
+    | { type: "ADD"; title: string }
+    | { type: "DELETE"; id: number };
 
-// todos = state, action = payload(input params from function)
-const reducer = (state, action) => {
+
+const initialTodos: Todo[] = [
+    { id: 1, title: "To do 1", complete: false },
+    { id: 2, title: "To do 2", complete: false },
+    { id: 3, title: "To do 5", complete: false },
+];
+
+const reducer = (state: Todo[], action: Action): Todo[] => {
     switch (action.type) {
         case "COMPLETE":
-            return state.map((t) => {
-                if (action.id === t.id) {
-                    return { ...t, complete: !t.complete }
-                } else {
-                    return t;
-                }
-            })
+            return state.map((t) =>
+                action.id === t.id ? { ...t, complete: !t.complete } : t
+            );
         default:
-            return state
+            return state;
     }
-}
+};
 
+// onPress -> handleComplete -> dispatch(x,y,z...) -> reducer -> update state
 export const UseReducerExample = () => {
     const [todos, dispatch] = useReducer(reducer, initialTodos);
-    const handleComplete = (todo) => {
-        dispatch({ type: "COMPLETE", id: todo.id }); // update state
-    }
+
+    const handleComplete = (todo: Todo) => {
+        dispatch({ type: "COMPLETE", id: todo.id });
+    };
+
     return (
         <>
-            {
-                todos.map((todo) => (
-                    <View key={todo.id}
-                        style={{ backgroundColor: todo.complete ? 'green' : 'white', flexDirection: 'row' }}>
-                        <Button title={todo.complete ? "Uncomplete" : "complete"}
-                            onPress={() => handleComplete(todo)} />
-                        <Text>{todo.title}</Text>
-                    </View>
-                ))
-            }
+            {todos.map((todo) => (
+                <View
+                    key={todo.id}
+                    style={{
+                        backgroundColor: todo.complete ? "green" : "white",
+                        flexDirection: "row",
+                        margin: 4,
+                    }}
+                >
+                    <Button
+                        title={todo.complete ? "Uncomplete" : "Complete"}
+                        onPress={() => handleComplete(todo)}
+                    />
+                    <Text style={{ marginLeft: 8 }}>{todo.title}</Text>
+                </View>
+            ))}
         </>
     );
-}
+};
