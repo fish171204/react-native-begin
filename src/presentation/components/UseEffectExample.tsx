@@ -4,28 +4,35 @@ import container from "../../dependencies/dependencies";
 import { PostClient } from "../../networking/post/PostClient";
 import { Post } from "../../model/Post";
 
+
 const initPost: Post[] = [];
-export const UseEffectExample = () => {
+
+const useFetchPosts = () => {
+    const [data, setData] = useState(initPost)
     const [reload, setReload] = useState(0);
-    const postApi = container.get<PostClient>('PostClient');
+
     useEffect(() => {
+        const postApi = container.get<PostClient>('PostClient');
         console.log("====> RELOAD");
         postApi.fetchPosts().then(posts => {
-            setPosts(posts);
+            setData(posts);
         })
-    }, [reload]);
-    const [posts, setPosts] = useState(initPost)
+    }, [reload])
+    return [data];
+}
+
+export const UseEffectExample = () => {
+    const [posts] = useFetchPosts()
 
     return (
         <ScrollView style={style.appbarTop}>
-            <Button title="Reload"
-                onPress={() => setReload(reload + 1)} />
-            {posts.map((prop, index) => {
-                return (
-                    <Text key={index}>
-                        {prop.title}
-                    </Text>)
-            })}
+            <View>
+                {posts.map((prop, index) => {
+                    return (
+                        <Text key={index}>{prop.title}</Text>
+                    )
+                })}
+            </View>
         </ScrollView>
     );
 }
@@ -45,4 +52,13 @@ const style = StyleSheet.create({
     - Trong ví dụ này:
         + Khi component mount hoặc khi reload thay đổi, useEffect gọi postApi.fetchPosts() để lấy danh sách bài viết.
         + Kết quả trả về được set vào state posts → component tự động re-render để hiển thị dữ liệu mới.
-*/ 
+*/
+
+/*
+    Custom Hook:
+    - Custom hook có thể gọi các hook khác như useState, useEffect bên trong.
+    - Giúp chia sẻ và tái sử dụng logic (ví dụ: fetch dữ liệu, xử lý form, debounce...) mà không cần lặp lại code.
+    - Trong ví dụ này:
+        + useFetchPosts() tách riêng logic gọi API và quản lý state posts ra khỏi component chính.
+        + Component UseEffectExample chỉ cần gọi hook để nhận dữ liệu, code gọn và dễ tái sử dụng hơn.
+*/
