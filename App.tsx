@@ -47,6 +47,7 @@ import { UseMemoExample } from './src/presentation/components/UseMemoExample';
 import { store } from './src/store';
 import { CounterExample } from './src/presentation/components/CounterExample';
 import { Provider } from 'react-redux';
+import { RTKQueryExample } from './src/presentation/components/RTXQueryExample';
 
 export default function App() {
   const userService = container.get<UserService>('UserService');
@@ -55,8 +56,13 @@ export default function App() {
   return (
     <>
       {/* <UseReducerExample /> */}
-      <Provider store={store}>
+
+      {/* <Provider store={store}>
         <CounterExample />
+      </Provider> */}
+
+      <Provider store={store}>
+        <RTKQueryExample />
       </Provider>
     </>
   );
