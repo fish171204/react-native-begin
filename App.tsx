@@ -44,6 +44,9 @@ import { UseRefExample } from './src/presentation/components/UseRefExample';
 import { UseReducerExample } from './src/presentation/components/UseReducerExample';
 import { UseCallbackExample } from './src/presentation/components/UseCallbackExample';
 import { UseMemoExample } from './src/presentation/components/UseMemoExample';
+import { store } from './src/store';
+import { CounterExample } from './src/presentation/components/CounterExample';
+import { Provider } from 'react-redux';
 
 export default function App() {
   const userService = container.get<UserService>('UserService');
@@ -51,7 +54,10 @@ export default function App() {
 
   return (
     <>
-      <UseEffectExample />
+      {/* <UseReducerExample /> */}
+      <Provider store={store}>
+        <CounterExample />
+      </Provider>
     </>
   );
 }
